@@ -15,5 +15,7 @@ namespace Inventory_1.Models
         public string serialnumber { get; set; }
         [Display(Name ="Codigo Secundario")]
         public string codSecondary { get; set; }
+
+        //nota
     }
 }
