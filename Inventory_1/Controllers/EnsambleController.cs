@@ -14,7 +14,8 @@ namespace Inventory_1.Controllers
         }
         public IActionResult CrearEnsamble()
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (
+                var connection = new SqlConnection(connectionString))
             {
                 var query = connection.Query("SELECT 1").FirstOrDefault();
             }
