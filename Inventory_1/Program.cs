@@ -1,7 +1,10 @@
+using Inventory_1.Servicios;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IRepositorioEnsamble, RepositorioEnsamble>();
 
 var app = builder.Build();
 
