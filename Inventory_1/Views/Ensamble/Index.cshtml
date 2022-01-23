@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Ensamblajes>
+@{
+    ViewData["Title"] = "LIsta Ensambles";
+}
+
+<h1>Ensambles</h1>
+
+<a asp-action="CrearEnsamble" class="btn btn-primary mb-3">Nuevo</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Funciones</th>
+            <th>Id</th>
+            <th>Elemento</th>
+            <th>Ensamble</th>
+            <th>No. Serial</th>
+            <th>Cod. Secundario</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ensambles in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-primary">Editar</a>
+                    <a class="btn btn-danger">Borrar</a>
+                </td>
+                <td>
+                    @ensambles.idAssambly
+                </td>
+                <td>
+                    @ensambles.Element_idElement
+                </td>
+                <td>
+                    @ensambles.Assembly_idAssembly
+                </td>
+                <td>
+                    @ensambles.serialnumber
+                </td>
+                <td>
+                    @ensambles.codSecondary
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

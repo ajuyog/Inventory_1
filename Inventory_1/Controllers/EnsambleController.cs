@@ -15,6 +15,15 @@ namespace Inventory_1.Controllers
         {
             this.repositorioEnsamble = repositorioEnsamble;
         }
+
+        public async Task<IActionResult> Index()
+        {
+            var ensamblajes = await repositorioEnsamble.Obtener();
+            return View(ensamblajes);
+        }
+
+
+
         public IActionResult CrearEnsamble()
         {
 
@@ -22,15 +31,21 @@ namespace Inventory_1.Controllers
         }
 
         [HttpPost]
-        public IActionResult CrearEnsamble(Ensamblajes ensamblajes)
+        public async Task<IActionResult> CrearEnsamble(Ensamblajes ensamblajes)
         {
             if (!ModelState.IsValid)
             {
                 return View(ensamblajes);
             }
 
-            repositorioEnsamble.CrearEnsamble(ensamblajes);
-            return View();
+            /*var yaExisteEnsamblajes = await repositorioEnsamble.Existe(ensamblajes.idAssambly);
+
+            if (yaExisteEnsamblajes)*/
+
+
+            await repositorioEnsamble.CrearEnsamble(ensamblajes);
+
+            return RedirectToAction("Index");
         }
     }
 }
