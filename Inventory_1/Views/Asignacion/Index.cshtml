@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "Lista de Asignaciones";
+}
+
+<h1>Lista de Asignaciones</h1>
+
+<a asp-action="CrearAsignacion" class="btn btn-primary mb-3">Nuevo</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Empresa</th>
+            <th>Periferico Entrada</th>
+            <th>Teclado</th>
+            <th>Mouse</th>
+            <th>Combo Teclado Mouse</th>
+            <th>Pc Portatil</th>
+            <th>Periferico de Salida</th>
+            <th>Monitor</th>
+            <th>Cargador de Corriente</th>
+            <th>Periferico Mixto</th>
+            <th>Cooler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var asignaciones in Model)
+        {
+         <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>   
+        }
+    </tbody>
+</table>

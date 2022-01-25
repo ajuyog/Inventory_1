@@ -16,7 +16,7 @@ namespace Inventory_1.Servicios
 
         public RepositorioEnsamble(IConfiguration configuration)
         {
-            connectionStrings = configuration.GetConnectionString("DefaultConnection");
+            connectionStrings = configuration.GetConnectionString("Connection_2");
         }
 
         public async Task CrearEnsamble(Ensamblajes ensamblajes)
