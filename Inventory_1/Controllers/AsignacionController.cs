@@ -2,7 +2,7 @@
 
 namespace Inventory_1.Controllers
 {
-    public class AssigmentController : Controller
+    public class AsignacionController : Controller
     {
         public IActionResult CrearAsignacion()
         {
