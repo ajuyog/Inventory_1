@@ -4,10 +4,10 @@ namespace Inventory_1.Models
 {
     public class Asignaciones
     {
-        [Required]
+        [Required(ErrorMessage ="El campo {0} es obligatorio")]
         [Display(Name ="Ensamble")]
         public int Assembly_idAssembly { get; set; }
-        [Required]
+        [Required(ErrorMessage ="El campo {0} es obligatorio ")]
         [Display(Name = "Id Funcionario")]
         public string Person_idPerson { get; set; }
     }
