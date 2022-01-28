@@ -1,11 +1,12 @@
 ﻿using Inventory_1.Models;
+using Inventory_1.Servicios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Inventory_1.Controllers
 {
     public class AsignacionController: Controller
     {
-        public IActionResult CrearAsignacion()
+        public IActionResult CrearAsignacion(IRepositorioAsignacion repositorioAsignacion)
         {
             return View();
         }

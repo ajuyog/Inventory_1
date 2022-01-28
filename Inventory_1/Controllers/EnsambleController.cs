@@ -38,10 +38,6 @@ namespace Inventory_1.Controllers
                 return View(ensamblajes);
             }
 
-            /*var yaExisteEnsamblajes = await repositorioEnsamble.Existe(ensamblajes.idAssambly);
-
-            if (yaExisteEnsamblajes)*/
-
 
             await repositorioEnsamble.CrearEnsamble(ensamblajes);
 

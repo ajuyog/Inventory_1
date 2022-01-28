@@ -8,7 +8,7 @@ namespace Inventory_1.Models
         [Display(Name ="Ensamble")]
         public int Assembly_idAssembly { get; set; }
         [Required(ErrorMessage ="El campo {0} es obligatorio ")]
-        [Display(Name = "Id Funcionario")]
+        [Display(Name = "Usuario")]
         public string Person_idPerson { get; set; }
     }
 }
