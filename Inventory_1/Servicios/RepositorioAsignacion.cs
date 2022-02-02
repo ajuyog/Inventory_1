@@ -7,6 +7,8 @@ namespace Inventory_1.Servicios
     public interface IRepositorioAsignacion
     {
         Task CrearAsignacion(Asignaciones asignaciones);
+        Task<bool> ExisteAsig(int Assembly_idAssembly, string Person_idPerson);
+        Task<IEnumerable<Asignaciones>> Obtener();
     }
 
     public class RepositorioAsignacion: IRepositorioAsignacion
@@ -27,5 +29,27 @@ namespace Inventory_1.Servicios
 
             asignaciones.Person_idPerson = Person_idPerson;
         }
+
+        public async Task<bool> ExisteAsig(int Assembly_idAssembly, string Person_idPerson)
+        {
+            using var connection = new SqlConnection(ConnectionStrings);
+
+            var existeAsig = await connection.QueryFirstOrDefaultAsync<int>($@"SELECT 1 FROM Assigment WHERE 
+                                                                               Assembly_idAssembly = @Assembly_idAssembly AND Person_idPerson = @Person_idPerson;"
+                                                                               , new {Assembly_idAssembly, Person_idPerson});
+            return existeAsig == 1;
+
+        }
+
+       public async Task<IEnumerable<Asignaciones>> Obtener()
+        {
+            using var connection = new SqlConnection(ConnectionStrings);
+
+            return await connection.QueryAsync<Asignaciones>($@"SELECT Assembly_idAssembly, Person_idPerson FROM Assigment;");
+
+
+        }
+
+
     }
 }

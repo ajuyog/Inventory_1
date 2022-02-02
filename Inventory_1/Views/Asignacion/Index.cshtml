@@ -1,50 +1,32 @@
-﻿
+﻿@model IEnumerable<Asignaciones>
 @{
-    ViewData["Title"] = "Lista de Asignaciones";
+    ViewData["Title"] = "Asignaciones";
 }
-
-<h1>Lista de Asignaciones</h1>
 
 <a asp-action="CrearAsignacion" class="btn btn-primary mb-3">Nuevo</a>
 
-<table class="table">
+<table class="Table">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Empresa</th>
-            <th>Periferico Entrada</th>
-            <th>Teclado</th>
-            <th>Mouse</th>
-            <th>Combo Teclado Mouse</th>
-            <th>Pc Portatil</th>
-            <th>Periferico de Salida</th>
-            <th>Monitor</th>
-            <th>Cargador de Corriente</th>
-            <th>Periferico Mixto</th>
-            <th>Cooler</th>
+            <th>Funciones</th>
+            <th>Ensamble</th>
+            <th>Id Usuario</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var asignaciones in Model)
         {
-         <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>   
+            <tr>
+                <td>
+                    <a class="btn btn-primary">Editar</a>
+                </td>
+                <td>
+                    @asignaciones.Assembly_idAssembly
+                </td>
+                <td>
+                    @asignaciones.Person_idPerson
+                </td>
+            </tr>
         }
     </tbody>
 </table>

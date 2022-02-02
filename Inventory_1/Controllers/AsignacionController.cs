@@ -13,11 +13,20 @@ namespace Inventory_1.Controllers
             this.repositorioAsignacion = repositorioAsignacion;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var asignaciones = await repositorioAsignacion.Obtener();
+
+            return View(asignaciones);
+        }
+
+       
         public IActionResult CrearAsignacion()
         {
             return View();
         }
 
+        
         [HttpPost]
 
         public async Task<IActionResult> CrearAsignacion(Asignaciones asignaciones)
@@ -27,9 +36,19 @@ namespace Inventory_1.Controllers
                 return View(asignaciones); 
             }
 
+            var asigExiste = await repositorioAsignacion.ExisteAsig(asignaciones.Assembly_idAssembly, asignaciones.Person_idPerson);
+
+            if (asigExiste)
+            {
+                ModelState.AddModelError(nameof(asignaciones.Person_idPerson), $"El ensamble {asignaciones.Assembly_idAssembly} ya esta asignado al usuario {asignaciones.Person_idPerson}");
+
+                return View(asignaciones);
+            }
+
             await repositorioAsignacion.CrearAsignacion(asignaciones);
 
-            return View();
+            return RedirectToAction("Index");
         }
+
     }
 }
