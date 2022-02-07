@@ -6,9 +6,11 @@ namespace Inventory_1.Servicios
 {
     public interface IRepositorioAsignacion
     {
+        Task Actualizar(Asignaciones asignaciones);
         Task CrearAsignacion(Asignaciones asignaciones);
         Task<bool> ExisteAsig(int Assembly_idAssembly, string Person_idPerson);
         Task<IEnumerable<Asignaciones>> Obtener();
+        //Task<Asignaciones> ObtenerAsig(int Assembly_idAssembly, string Person_idPerson);
     }
 
     public class RepositorioAsignacion: IRepositorioAsignacion
@@ -50,6 +52,23 @@ namespace Inventory_1.Servicios
 
         }
 
+        public async Task Actualizar(Asignaciones asignaciones)
+        {
+            using var connection = new SqlConnection(ConnectionStrings);
 
+            await connection.ExecuteAsync($@"UPDATE Assigment
+                                        SET Assembly_idAssembly = @Assembly_idAssembly, Person_idPerson = @Person_idPerson
+                                        WHERE Person_idPerson = @Person_idPerson;", asignaciones);
+        }
+
+       /* public async Task<Asignaciones> ObtenerAsig(int Assembly_idAssembly, string Person_idPerson)
+        {
+            using var connection = new SqlConnection(ConnectionStrings);
+
+            return await connection.QueryFirstOrDefaultAsync<Asignaciones>($@"SELECT Assembly_idAssembly, Person_idPerson
+                                                                            FROM Assigment
+                                                                            WHERE Assembly_idAssembly = @Assembly_idAssembly 
+                                                                            AND Person_idPerson = @Person_idPerson;", new {Assembly_idAssembly, Person_idPerson});
+        }*/
     }
 }
