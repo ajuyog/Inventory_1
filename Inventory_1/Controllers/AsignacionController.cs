@@ -26,13 +26,6 @@ namespace Inventory_1.Controllers
             return View();
         }
 
-        [HttpPost]
-
-        public async Task<ActionResult> Editar(Asignaciones asignaciones)
-        {
-            var personId = repositorioAsignacion.Actualizar(Pers)
-                
-        }
         
         [HttpPost]
 
@@ -56,13 +49,5 @@ namespace Inventory_1.Controllers
 
             return RedirectToAction("Index");
         }
-
-       /* [HttpGet]
-
-        public async Task<ActionResult> Editar(int Assembly_idAssembly, string Person_idPerson)
-        {
-            var personId = await repositorioAsignacion.ObtenerAsig(Person_idPerson);
-        }*/
-
     }
 }

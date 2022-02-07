@@ -10,7 +10,7 @@ namespace Inventory_1.Servicios
         Task CrearAsignacion(Asignaciones asignaciones);
         Task<bool> ExisteAsig(int Assembly_idAssembly, string Person_idPerson);
         Task<IEnumerable<Asignaciones>> Obtener();
-        //Task<Asignaciones> ObtenerAsig(int Assembly_idAssembly, string Person_idPerson);
+        Task<Asignaciones> ObtenerAsig(int Assembly_idAssembly, string Person_idPerson);
     }
 
     public class RepositorioAsignacion: IRepositorioAsignacion
@@ -61,7 +61,7 @@ namespace Inventory_1.Servicios
                                         WHERE Person_idPerson = @Person_idPerson;", asignaciones);
         }
 
-       /* public async Task<Asignaciones> ObtenerAsig(int Assembly_idAssembly, string Person_idPerson)
+       public async Task<Asignaciones> ObtenerAsig(int Assembly_idAssembly, string Person_idPerson)
         {
             using var connection = new SqlConnection(ConnectionStrings);
 
@@ -69,6 +69,6 @@ namespace Inventory_1.Servicios
                                                                             FROM Assigment
                                                                             WHERE Assembly_idAssembly = @Assembly_idAssembly 
                                                                             AND Person_idPerson = @Person_idPerson;", new {Assembly_idAssembly, Person_idPerson});
-        }*/
+        }
     }
 }
