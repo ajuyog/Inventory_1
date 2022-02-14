@@ -10,6 +10,9 @@
 
 <form asp-controller="Asignacion" asp-action="Editar">
 
+    <input type="hidden" asp-for = "Person_idPerson" />
+    <input type = "hidden" asp-for = "Assembly_idAssembly"/>
+
     <div class="mb-3">
         <label asp-for="Assembly_idAssembly" class="form-label"></label>
         <input asp-for="Assembly_idAssembly" class="form-control" />
