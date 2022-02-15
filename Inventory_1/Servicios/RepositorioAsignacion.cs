@@ -13,6 +13,8 @@ namespace Inventory_1.Servicios
         
     }
 
+    //Conección a BD
+
     public class RepositorioAsignacion: IRepositorioAsignacion
     {
         private readonly string ConnectionStrings;
@@ -20,6 +22,8 @@ namespace Inventory_1.Servicios
         {
             ConnectionStrings = configuration.GetConnectionString("Connection_2");
         }
+
+        //Crear una asignación formulario
 
         public async Task CrearAsignacion(Asignaciones asignaciones)
         {
@@ -32,6 +36,8 @@ namespace Inventory_1.Servicios
             asignaciones.Person_idPerson = Person_idPerson;
         }
 
+        //Verificación de datos existente
+
         public async Task<bool> ExisteAsig(int Assembly_idAssembly, string Person_idPerson)
         {
             using var connection = new SqlConnection(ConnectionStrings);
@@ -43,6 +49,8 @@ namespace Inventory_1.Servicios
 
         }
 
+        //Lista de asignaciones lista/Tabla
+
        public async Task<IEnumerable<Asignaciones>> Obtener()
         {
             using var connection = new SqlConnection(ConnectionStrings);
@@ -52,6 +60,9 @@ namespace Inventory_1.Servicios
 
         }
 
+
+        //Editor asignación formulario
+
         public async Task Actualizar(Asignaciones asignaciones)
         {
             using var connection = new SqlConnection(ConnectionStrings);
@@ -59,6 +70,16 @@ namespace Inventory_1.Servicios
             await connection.ExecuteAsync($@"UPDATE Assigment
                                         SET Person_idPerson = @Person_idPerson
                                         WHERE Assembly_idAssembly = @Assembly_idAssembly", asignaciones);
+        }
+
+        //Eliminar registro de asignacion
+
+        public async Task Borrar(int Person_idPerson,int Assembly_idAssembly)
+        {
+            using var connection = new SqlConnection(ConnectionStrings);
+
+            await connection.ExecuteAsync($@"DELLETE Assigment
+                                          WHERE Person_idPerson = @Person_idPerson AND Assembly_idAssembly = @Assembly_idAssembly", new { Person_idPerson, Assembly_idAssembly });
         }
       
     }
