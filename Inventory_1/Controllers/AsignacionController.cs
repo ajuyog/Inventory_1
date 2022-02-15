@@ -50,30 +50,20 @@ namespace Inventory_1.Controllers
             return RedirectToAction("Index");
         }
 
-       /* [HttpGet]
+        [HttpGet]
 
-        public async Task<ActionResult> Editar(int Assembly_idAssembly, string Person_idPerson)
+        public ActionResult Editar()
         {
-            var personId = repositorioAsignacion.Person_idPerson;
-            var idAssembly = repositorioAsignacion.Assembly_idAssembly;
-
-            var asignacion = await repositorioAsignacion.ObtenerAsig(idAssembly, personId);
-
-            if (asignacion == null)
-            {
-                return RedirectResult("asignación no encontrada");
-            }
-
-            return View(asignacion);
-        }*/
+            return View();
+        }
 
         [HttpPost]
 
         public async Task<ActionResult> Editar(Asignaciones asignaciones)
         {
             await repositorioAsignacion.Actualizar(asignaciones);
-            
             return RedirectToAction("Index");
         }
+
     }
 }
