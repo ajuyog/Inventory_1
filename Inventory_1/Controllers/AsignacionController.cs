@@ -52,10 +52,22 @@ namespace Inventory_1.Controllers
 
         [HttpGet]
 
-        public ActionResult Editar()
+        public async Task<ActionResult> Editar(int Assembly_idAssembly)
+        {
+            var asignaciones = await repositorioAsignacion.ObtenerEnsamble(Assembly_idAssembly);
+
+            if (asignaciones is null)
+            {
+                return RedirectToAction("No encontrado");
+            }
+
+            return View(asignaciones);
+        }
+
+        /*public ActionResult Editar()
         {
             return View();
-        }
+        }*/
 
         [HttpPost]
 

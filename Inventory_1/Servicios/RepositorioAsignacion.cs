@@ -10,7 +10,7 @@ namespace Inventory_1.Servicios
         Task CrearAsignacion(Asignaciones asignaciones);
         Task<bool> ExisteAsig(int Assembly_idAssembly, string Person_idPerson);
         Task<IEnumerable<Asignaciones>> Obtener();
-        
+        Task<Asignaciones> ObtenerEnsamble(int Assembly_idAssembly);
     }
 
     //Conección a BD
@@ -71,6 +71,17 @@ namespace Inventory_1.Servicios
                                         SET Person_idPerson = @Person_idPerson
                                         WHERE Assembly_idAssembly = @Assembly_idAssembly", asignaciones);
         }
+
+        //verificación de ensamble
+
+        public async Task<Asignaciones> ObtenerEnsamble(int Assembly_idAssembly)
+        {
+            using var connetion = new SqlConnection(ConnectionStrings);
+            return await connetion.QueryFirstOrDefaultAsync<Asignaciones>($@"SELECT Assembly_idAssembly, Person_idPerson FROM Assigment 
+                                                                          WHERE Assembly_idAssembly = @Assembly_idAssembly 
+                                                                          ", new { Assembly_idAssembly });
+        }
+
 
         //Eliminar registro de asignacion
 

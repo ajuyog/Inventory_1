@@ -23,6 +23,11 @@ namespace Inventory_1.Controllers
             return View();
         }
 
+        public IActionResult NoEncontrado()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
