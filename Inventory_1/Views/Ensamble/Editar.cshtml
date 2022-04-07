@@ -1,0 +1,42 @@
+﻿@model Ensamblajes
+@{
+    ViewData["Title"] = "Editar Ensamble";
+}
+
+
+<h1>Editar Ensambles @Model.Assembly_idAssembly</h1>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="Ensamble" asp-action="Editar">
+    <div class="mb-3">
+        <label asp-for="Element_idElement" class="form-label"></label>
+        <input asp-for="Element_idElement" class="form-control" />
+        <span asp-validation-for="Element_idElement" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Assembly_idAssembly" class="form-label"></label>
+        <input asp-for="Assembly_idAssembly" class="form-control" />
+        <span asp-validation-for="Assembly_idAssembly" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="serialnumber" class="form-label"></label>
+        <input asp-for="serialnumber" class="form-control" />
+        <span asp-validation-for="serialnumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="codSecondary" class="form-label"></label>
+        <input asp-for="codSecondary" class="form-control" />
+        <span asp-validation-for="codSecondary" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

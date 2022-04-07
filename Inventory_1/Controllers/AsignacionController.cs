@@ -58,16 +58,11 @@ namespace Inventory_1.Controllers
 
             if (asignaciones is null)
             {
-                return RedirectToAction("No encontrado");
+                return RedirectToAction("NoEncontrado");
             }
 
             return View(asignaciones);
         }
-
-        /*public ActionResult Editar()
-        {
-            return View();
-        }*/
 
         [HttpPost]
 

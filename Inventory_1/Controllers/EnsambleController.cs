@@ -43,5 +43,28 @@ namespace Inventory_1.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+
+        public async Task<ActionResult> Editar(int Assembly_idAssembly)
+        {
+            var ensambles = await repositorioEnsamble.ObtenerEnsamble(Assembly_idAssembly);
+
+            if (ensambles is null)
+            {
+                return RedirectToAction("NoEncontrado");
+            }
+
+            return View(ensambles);
+        }
+
+
+        [HttpPost]
+
+        public async Task<ActionResult> Editar(Ensamblajes ensamblajes)
+        {
+            await repositorioEnsamble.Actualizar(ensamblajes);
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -6,8 +6,10 @@ namespace Inventory_1.Servicios
 {
     public interface IRepositorioEnsamble
     {
+        Task Actualizar(Ensamblajes ensamblajes);
         Task CrearEnsamble(Ensamblajes ensamblajes);
         Task<IEnumerable<Ensamblajes>> Obtener();
+        Task<Ensamblajes> ObtenerEnsamble(int Assembly_idAssembly);
         // Task<bool> Existe(int idAssambly);
     }
     public class RepositorioEnsamble: IRepositorioEnsamble
@@ -46,6 +48,34 @@ namespace Inventory_1.Servicios
 
             return await connection.QueryAsync<Ensamblajes>($@"SELECT idAssembly,Element_idElement,Assembly_idAssembly,serialnumber,codSecondary FROM Assembly");
         }
+
+
+        //editar ensamblaje
+
+        public async Task Actualizar(Ensamblajes ensamblajes)
+        {
+            using var connection = new SqlConnection(connectionStrings);
+
+            await connection.ExecuteAsync($@"UPDATE Assembly SET 
+                                            Element_idElement = @Element_idElement,  
+                                            serialnumber= @serialnumber, 
+                                            codSecondary= @codSecondary
+                                            WHERE Assembly_idAssembly= @Assembly_idAssembly", ensamblajes);
+
+        }
+
+        //verificación de ensamble
+
+        public async Task<Ensamblajes> ObtenerEnsamble(int Assembly_idAssembly)
+        {
+            using var connection = new SqlConnection(connectionStrings);
+            return await connection.QueryFirstOrDefaultAsync<Ensamblajes>($@"SELECT idAssembly, Element_idElement, Assembly_idAssembly, serialnumber, codSecondary 
+                                                                          FROM Assembly 
+                                                                          WHERE Assembly_idAssembly = @Assembly_idAssembly 
+                                                                          ", new { Assembly_idAssembly });
+        }
+
+
     }
     
 }

@@ -22,7 +22,8 @@
         {
             <tr>
                 <td>
-                    <a class="btn btn-primary">Editar</a>
+                    <a class="btn btn-primary" asp-action="Editar" asp-route-Assembly_idAssembly="@ensambles.Assembly_idAssembly">Editar</a>
+                    <a class="btn btn-secondary" asp-controller="Asignacion" asp-action="CrearAsignacion">Asignar</a>
                 </td>
                 <td>
                     @ensambles.Element_idElement
