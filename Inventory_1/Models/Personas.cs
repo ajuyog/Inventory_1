@@ -13,7 +13,7 @@ namespace Inventory_1.Models
         [Required(ErrorMessage = "El Campo {0} es requerido")]
         [Display(Name ="Perfil")]
         public int PersonType_idPersonType { get; set; }
-        [Display(Name ="Descipción")]
+        [Display(Name ="Descripción")]
         public string description { get; set; }
         [Required(ErrorMessage = "El Campo {0} es requerido")]
         [Display(Name ="Nombres")]
@@ -21,9 +21,10 @@ namespace Inventory_1.Models
         [Required(ErrorMessage = "El Campo {0} es requerido")]
         [Display (Name ="Apellidos")]
         public string lastname { get; set; }
+        [Display (Name ="Código Secundario")]
         public string codeSecundary { get; set; }
         [Required(ErrorMessage = "El Campo {0} es requerido")]
         [Display (Name ="Activo")]
-        public bool Active { get; set; }
+        public bool active { get; set; }
     }
 }

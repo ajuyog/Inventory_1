@@ -1,0 +1,60 @@
+﻿@model Personas
+@{
+    ViewData["Title"] = "Crear Persona";
+}
+
+<h1>Nuevo Usuario</h1>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="Persona" asp-action="CrearPersona">
+    <div class="mb-3">
+        <label asp-for="idPerson" class="form-label"></label>
+        <input asp-for="idPerson" class="form-control" />
+        <span asp-validation-for="idPerson" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Area_idArea" class="form-label"></label>
+        <input asp-for="Area_idArea" class="form-control" />
+        <span asp-validation-for="Area_idArea" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PersonType_idPersonType" class="form-label"></label>
+        <input asp-for="PersonType_idPersonType" class="form-control" />
+        <span asp-validation-for="PersonType_idPersonType" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="description" class="form-label"></label>
+        <input asp-for="description" class="form-control" />
+        <span asp-validation-for=description clas="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="firstname" class="form-label"></label>
+        <input asp-for="firstname" class="form-control" />
+        <span asp-validation-for="firstname" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="lastname" class="form-label"></label>
+        <input asp-for="lastname" class="form-control" />
+        <span asp-validation-for="lastname" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="codeSecundary" class="form-label"></label>
+        <input asp-for="codeSecundary" class="form-control" />
+        <span asp-validation-for="codeSecundary" class="text-danger"></span>
+    </div>
+
+   <div class="form-group form-check">
+       <label class="form-check-label">
+           <input class="form-check-input" asp-for="active" /> @Html.DisplayNameFor(model => model.active)
+        </label>
+    </div>
+
+
+</form>

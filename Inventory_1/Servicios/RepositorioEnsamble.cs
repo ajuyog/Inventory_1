@@ -31,15 +31,6 @@ namespace Inventory_1.Servicios
             ensamblajes.idAssambly = idAssambly;
         }
 
-        /* public async Task<bool> Existe(int idAssambly)
-         {
-             using var connection = new SqlConnection(connectionStrings);
-             var existe = await connection.QueryFirstOrDefaultAsync<int>(
-                                           @"SELECT 1 FROM Assembly WHERE idAssembly = @idAssembly;",
-                                           new { idAssambly });
-
-                 return existe == 1;
-         }*/
 
         public async Task<IEnumerable<Ensamblajes>> Obtener()
         {
