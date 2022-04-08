@@ -4,35 +4,25 @@ using Microsoft.Data.SqlClient;
 
 namespace Inventory_1.Servicios
 {
-
     public interface IRepositorioPersona
     {
 
     }
     public class RepositorioPersona: IRepositorioPersona
     {
-        private readonly string connectionStrings;
+        private readonly string ConnectionStrings;
 
         public RepositorioPersona(IConfiguration configuration)
         {
-
-            connectionStrings = configuration.GetConnectionString("Connection_2");
+            ConnectionStrings = configuration.GetConnectionString("Connection_2");
 
         }
 
         public async Task CrearPersona(Personas personas)
         {
-            using var connection = new SqlConnection(connectionStrings);
+            using var connection = new SqlConnection(ConnectionStrings);
 
-            var idPerson = await connection.QuerySingleAsync<string>($@"INSERT INTO Person (Area_idArea, PersonType_idPersonType, description, 
-                                                                    firstname, lastname, 
-                                                                    codeSecondary, active) values
-                                                                    (@Area_idArea, @PersonType_idPersonType, @description, 
-                                                                     @firstname, @lastname, @codeSecondary, @active)", personas);
-
-            personas.idPerson = idPerson;
+            var perId = await connection.QuerySingle
         }
-
-
     }
 }
