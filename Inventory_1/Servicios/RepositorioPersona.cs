@@ -8,6 +8,7 @@ namespace Inventory_1.Servicios
     {
         Task CrearPersona(Personas personas);
         Task<bool> Existe(string idPerson);
+        Task<IEnumerable<Personas>> Obtener();
     }
 
     public class RepositorioPersona: IRepositorioPersona
@@ -41,6 +42,13 @@ namespace Inventory_1.Servicios
 
             return existPerson == 1;
 
+        }
+
+        public async Task<IEnumerable<Personas>> Obtener()
+        {
+            using var connection = new SqlConnection(ConnectionStrings);
+
+            return await connection.QueryAsync<Personas>($"SELECT idPerson, Area_idArea, description, firstname, lastname, active FROM Person");
         }
     }
 }

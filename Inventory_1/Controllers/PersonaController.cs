@@ -13,6 +13,12 @@ namespace Inventory_1.Controllers
             this.repositorioPersona = repositorioPersona;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var personas = await repositorioPersona.Obtener();
+
+            return View(personas);
+        }
 
         public IActionResult CrearPersona()
         {
@@ -41,6 +47,9 @@ namespace Inventory_1.Controllers
 
             return View();
         }
+        //verificación por javascript de existencia de dato registrado
+
+        
 
     }
 }

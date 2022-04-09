@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Personas>
+
+@{
+    ViewData["Title"] = "Lista de Usuarios";
+}
+
+<h1>Lista de Usuarios</h1>
+
+<a asp-action="CrearPersona" class="btn btn-primary mb-3">Nuevo</a>
+
+<table class="Table">
+    <thead>
+        <tr>
+            <th>Funciones</th>
+            <th>Id</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Área</th>
+            <th>Activo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var personas in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-primary" asp-action="Editar">Editar</a>
+                </td>
+                <td>
+                    @personas.idPerson
+                </td>
+                <td>
+                    @personas.firstname
+                </td>
+                <td>
+                    @personas.lastname
+                </td>
+                <td>
+                    @personas.Area_idArea
+                </td>
+                <td>
+                    @personas.active
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
