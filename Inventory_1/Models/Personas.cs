@@ -22,7 +22,7 @@ namespace Inventory_1.Models
         [Display (Name ="Apellidos")]
         public string lastname { get; set; }
         [Display (Name ="Código Secundario")]
-        public string codeSecundary { get; set; }
+        public string codeSecondary { get; set; }
         [Required(ErrorMessage = "El Campo {0} es requerido")]
         [Display (Name ="Activo")]
         public bool active { get; set; }

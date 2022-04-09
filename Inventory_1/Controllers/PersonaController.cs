@@ -19,5 +19,28 @@ namespace Inventory_1.Controllers
             return View();
         }
 
+        [HttpPost]
+
+        public async Task<IActionResult> CrearPersona(Personas personas)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(personas);
+            }
+
+            var yaExistePers = await repositorioPersona.Existe(personas.idPerson);
+            
+            if (yaExistePers)
+            {
+                ModelState.AddModelError(nameof(personas.idPerson), $"El usuario {personas.idPerson} ya esta registrado como {personas.firstname} {personas.lastname}");
+
+                return View(personas);
+            }
+
+           await repositorioPersona.CrearPersona(personas);
+
+            return View();
+        }
+
     }
 }
