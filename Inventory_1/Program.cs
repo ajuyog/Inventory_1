@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IRepositorioEnsamble, RepositorioEnsamble>();
 builder.Services.AddTransient<IRepositorioAsignacion, RepositorioAsignacion>();
 builder.Services.AddTransient<IRepositorioPersona, RepositorioPersona>();
+builder.Services.AddTransient<IRepositorioElemento, RepositorioElemento>();
 
 var app = builder.Build();
 
