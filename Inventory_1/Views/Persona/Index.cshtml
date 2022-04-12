@@ -1,21 +1,23 @@
 ﻿@model IEnumerable<Personas>
-
 @{
-    ViewData["Title"] = "Lista de Usuarios";
+    ViewData["Title"] = "LIsta Usuarios";
 }
 
-<h1>Lista de Usuarios</h1>
+<h1>Usuarios</h1>
 
 <a asp-action="CrearPersona" class="btn btn-primary mb-3">Nuevo</a>
 
-<table class="Table">
+<table class="table">
     <thead>
         <tr>
             <th>Funciones</th>
             <th>Id</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
             <th>Área</th>
+            <th>Perfil</th>
+            <th>Descripción</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Codígo Secundario</th>
             <th>Activo</th>
         </tr>
     </thead>
@@ -24,10 +26,19 @@
         {
             <tr>
                 <td>
-                    <a class="btn btn-primary" asp-action="Editar">Editar</a>
+                    <a class="btn btn-primary" asp-action="Editar" asp-route-idPerson="@personas.idPerson">Editar</a>
                 </td>
                 <td>
                     @personas.idPerson
+                </td>
+                <td>
+                    @personas.Area_idArea
+                </td>
+                <td>
+                    @personas.PersonType_idPersonType
+                </td>
+                <td>
+                    @personas.description
                 </td>
                 <td>
                     @personas.firstname
@@ -36,7 +47,7 @@
                     @personas.lastname
                 </td>
                 <td>
-                    @personas.Area_idArea
+                    @personas.codeSecondary
                 </td>
                 <td>
                     @personas.active

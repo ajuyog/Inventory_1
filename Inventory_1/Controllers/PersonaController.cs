@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Inventory_1.Controllers
 {
-    public class PersonaController : Controller
+    public class PersonaController: Controller
     {
         private readonly IRepositorioPersona repositorioPersona;
 
@@ -13,11 +13,11 @@ namespace Inventory_1.Controllers
             this.repositorioPersona = repositorioPersona;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<ActionResult> Index()
         {
-            var personas = await repositorioPersona.Obtener();
+            var usuarios = await repositorioPersona.Obtener();
 
-            return View(personas);
+            return View(usuarios);
         }
 
         public IActionResult CrearPersona()
@@ -27,29 +27,49 @@ namespace Inventory_1.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> CrearPersona(Personas personas)
+        public async Task<ActionResult> CrearPersona(Personas personas)
         {
             if (!ModelState.IsValid)
             {
                 return View(personas);
             }
 
-            var yaExistePers = await repositorioPersona.Existe(personas.idPerson);
-            
-            if (yaExistePers)
-            {
-                ModelState.AddModelError(nameof(personas.idPerson), $"El usuario {personas.idPerson} ya esta registrado como {personas.firstname} {personas.lastname}");
+            var personaExit = await repositorioPersona.ExistePerson(personas.idPerson);
 
-                return View(personas);
+            if (personaExit)
+            {
+                ModelState.AddModelError(nameof(personas.idPerson), $"El registro {personas.idPerson} ya existe");
+
+                return View(personaExit);
             }
 
-           await repositorioPersona.CrearPersona(personas);
+            await repositorioPersona.CrearPersona(personas);
 
-            return View();
+            return RedirectToAction("Index");
         }
-        //verificación por javascript de existencia de dato registrado
 
-        
+        [HttpGet]
 
+        public async Task<ActionResult> Editar(string idPerson)
+        {
+            var persona = await repositorioPersona.ObtenerPersonas(idPerson);
+
+            if (persona is null)
+            {
+                return RedirectToAction("No Encontrado");
+            }
+
+            return View(persona);
+
+        }
+
+        [HttpPost]
+
+        public async Task<ActionResult> Editar(Personas personas)
+        {
+            await repositorioPersona.Actualizar(personas);
+
+            return RedirectToAction("Index");
+        }
     }
 }
