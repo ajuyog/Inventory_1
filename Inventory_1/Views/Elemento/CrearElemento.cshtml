@@ -1,4 +1,47 @@
 ﻿@model Elementos
+
 @{
+    ViewData["Title"] = "crear Elemento";
+}
+
+<h1>Elementos</h1>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="Elemento" asp-action="CrearElemento">
+
+    <div class="mb-3">
+        <label asp-for="ElementType_idElementType" class="form-label"></label>
+        <input asp-for="ElementType_idElementType" class="form-control" />
+        <span asp-validation-for="ElementType_idElementType" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Element_idElement" class="form-label"></label>
+        <input asp-for="Element_idElement" class="form-control" />
+        <span asp-validation-for="Element_idElement" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="codeSecondary" class="form-label"></label>
+        <input asp-for="codeSecondary" class="form-control" />
+        <span asp-validation-for="codeSecondary" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="description" class="form-label"></label>
+        <input asp-for="description" class="form-control" />
+        <span asp-validation-for="description" class="text-danger"></span>
+    </div>
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" asp-for="active" /> @Html.DisplayNameFor(model => model.active)
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Registrar</button>
+    <button class="btn btn-secondary" asp-action="Index">Cancelar</button>
+</form>
+
+@section Scripts{
+
+    <partial name="_ValidationScriptsPartial"/>
 
 }
+

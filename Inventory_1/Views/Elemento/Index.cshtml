@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Inventory_1.Models.Elementos>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista Elementos</h1>
+
+<p>
+    <a asp-action="CrearElemento">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idElement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementType_idElementType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Element_idElement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.codeSecondary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.active)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idElement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ElementType_idElementType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Element_idElement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.codeSecondary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.active)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { idElement = item.idElement })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

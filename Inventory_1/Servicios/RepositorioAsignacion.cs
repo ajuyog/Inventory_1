@@ -30,8 +30,9 @@ namespace Inventory_1.Servicios
             using var connection = new SqlConnection(ConnectionStrings);
 
             var Person_idPerson = await connection.QuerySingleAsync<string>($@"INSERT INTO Assigment (Assembly_idAssembly, Person_idPerson) 
-                                                           VALUES (@Assembly_idAssembly, @Person_idPerson);
-                                                           SELECT SCOPE_IDENTITY()", asignaciones);
+                                                                            VALUES (@Assembly_idAssembly, @Person_idPerson);
+                                                                            SELECT Person_idPerson FROM Assigment 
+                                                                            WHERE Person_idPerson = @Person_idPerson AND Assembly_idAssembly = @Assembly_idAssembly", asignaciones);
 
             asignaciones.Person_idPerson = Person_idPerson;
         }
