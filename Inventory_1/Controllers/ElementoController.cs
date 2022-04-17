@@ -35,21 +35,12 @@ namespace Inventory_1.Controllers
                 return View(elementos);
             }
 
-            var elementExist = await repositorioElemento.ExistElemento(elementos.idElement);
-
-            if (!elementExist)
-            {
-                ModelState.AddModelError(nameof(elementos.idElement),$"El Elemento {elementos.idElement} ya exite");
-
-                return View(elementos);
-            }
-
             await repositorioElemento.CrearElemento(elementos);
 
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
+       [HttpGet]
 
         public async Task<ActionResult> Editar(int idElement)
         {
