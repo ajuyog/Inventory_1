@@ -10,6 +10,8 @@ namespace Inventory_1.Servicios
         Task CrearEnsamble(Ensamblajes ensamblajes);
         Task<IEnumerable<Ensamblajes>> Obtener();
         Task<Ensamblajes> ObtenerEnsamble(int Assembly_idAssembly);
+        Task<IEnumerable<Ensamblajes>> ObtenerId();
+
         // Task<bool> Existe(int idAssambly);
     }
     public class RepositorioEnsamble: IRepositorioEnsamble
@@ -64,6 +66,15 @@ namespace Inventory_1.Servicios
                                                                           FROM Assembly 
                                                                           WHERE Assembly_idAssembly = @Assembly_idAssembly 
                                                                           ", new { Assembly_idAssembly });
+        }
+
+        //lista ids
+
+        public async Task<IEnumerable<Ensamblajes>> ObtenerId()
+        {
+            using var connection = new SqlConnection(connectionStrings);
+
+            return await connection.QueryAsync<Ensamblajes>(@"SELECT idAssembly FROM Assembly");
         }
 
 

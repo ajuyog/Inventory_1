@@ -10,6 +10,7 @@ namespace Inventory_1.Servicios
         Task CrearPersona(Personas personas);
         Task<bool> ExistePerson(string idPerson);
         Task<IEnumerable<Personas>> Obtener();
+        Task<IEnumerable<Personas>> ObtenerId();
         Task<Personas> ObtenerPersonas(string idPerson);
     }
     public class RepositorioPersona: IRepositorioPersona
@@ -59,6 +60,17 @@ namespace Inventory_1.Servicios
         }
 
 
+        //Iteeracion de lista ids
+
+        public async Task<IEnumerable<Personas>> ObtenerId()
+        {
+            using var connection = new SqlConnection(connectionStrings);
+
+            return await connection.QueryAsync<Personas>($@"SELECT idPerson FROM Person");
+        }
+
+
+
         //editor
 
         public async Task Actualizar(Personas personas)
@@ -87,5 +99,7 @@ namespace Inventory_1.Servicios
                                                                         firstname, lastname, codeSecondary, active 
                                                                         FROM Person WHERE idPerson = @idPerson", new { idPerson });
         }
+
+
     }
 }

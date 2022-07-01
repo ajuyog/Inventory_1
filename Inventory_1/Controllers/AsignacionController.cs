@@ -1,76 +1,51 @@
-using Inventory_1.Models;
+﻿using Inventory_1.Models;
 using Inventory_1.Servicios;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Inventory_1.Controllers
 {
-    public class AsignacionController: Controller
+    public class AsignacionController : Controller
     {
         private readonly IRepositorioAsignacion repositorioAsignacion;
+        private readonly IRepositorioEnsamble repositorioEnsamble;
+        private readonly IRepositorioPersona repositorioPersona;
 
-        public AsignacionController(IRepositorioAsignacion repositorioAsignacion)
+        public AsignacionController(IRepositorioAsignacion repositorioAsignacion, IRepositorioEnsamble repositorioEnsamble, IRepositorioPersona repositorioPersona)
         {
             this.repositorioAsignacion = repositorioAsignacion;
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            var asignaciones = await repositorioAsignacion.Obtener();
-
-            return View(asignaciones);
-        }
-
-       
-        public IActionResult CrearAsignacion()
-        {
-            return View();
-        }
-
-        
-        [HttpPost]
-
-        public async Task<IActionResult> CrearAsignacion(Asignaciones asignaciones)
-        {
-            if (!ModelState.IsValid) 
-            { 
-                return View(asignaciones); 
-            }
-
-            var asigExiste = await repositorioAsignacion.ExisteAsig(asignaciones.Assembly_idAssembly, asignaciones.Person_idPerson);
-
-            if (asigExiste)
-            {
-                ModelState.AddModelError(nameof(asignaciones.Person_idPerson), $"El ensamble {asignaciones.Assembly_idAssembly} ya esta asignado al usuario {asignaciones.Person_idPerson}");
-
-                return View(asignaciones);
-            }
-
-            await repositorioAsignacion.CrearAsignacion(asignaciones);
-
-            return RedirectToAction("Index");
+            this.repositorioEnsamble = repositorioEnsamble;
+            this.repositorioPersona = repositorioPersona;
         }
 
         [HttpGet]
 
-        public async Task<ActionResult> Editar(int Assembly_idAssembly)
+        public async Task<IActionResult> CrearAsignacion()
         {
-            var asignaciones = await repositorioAsignacion.ObtenerEnsamble(Assembly_idAssembly);
+            var personas = await repositorioPersona.Obtener();
+            var ensambles = await repositorioEnsamble.Obtener();
+            var modelo = new AsignacionViewModel();
+            modelo.Personas = personas.Select(x => new SelectListItem(x.firstname + ' ' + x.lastname, x.idPerson));
+            modelo.Ensambles = ensambles.Select(x => new SelectListItem(x.serialnumber, x.Assembly_idAssembly.ToString()));
 
-            if (asignaciones is null)
-            {
-                return RedirectToAction("NoEncontrado");
-            }
-
-            return View(asignaciones);
+            return View(modelo);
         }
 
         [HttpPost]
 
-        public async Task<ActionResult> Editar(Asignaciones asignaciones)
+        public async Task<IActionResult> CrearAsignacion(Asignacion asignacion)
         {
-            await repositorioAsignacion.Actualizar(asignaciones);
+            if (!ModelState.IsValid)
+            {
+                return View(asignacion);
+            }
+
+            await repositorioAsignacion.CrearAsignacion(asignacion);
+
             return RedirectToAction("Index");
+
         }
 
     }
+
 }

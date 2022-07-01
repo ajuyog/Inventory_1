@@ -1,31 +1,40 @@
-﻿@model Asignaciones
+﻿@model Inventory_1.Models.AsignacionViewModel
+
 @{
-    ViewData["Title"] = "Crear Asignación";
+    ViewData["Title"] = "Asignacion";
 }
 
-<h1>Asignaciones</h1>
+<h1>CrearAsignacion</h1>
 
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-<form asp-controller="Asignacion" asp-action="CrearAsignacion">
-
-    <div class="mb-3">
-        <label asp-for="Assembly_idAssembly" class="form-label"></label>
-        <input asp-for="Assembly_idAssembly" class="form-control" />
-        <span asp-validation-for="Assembly_idAssembly" class="text-danger"></span>
-
+<h4>AsignacionViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CrearAsignacion">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Assembly_idAssembly" class="control-label"></label>
+                <select asp-for="Assembly_idAssembly" asp-items="Model.Ensambles" class="form-select" ></select>
+                <span asp-validation-for="Assembly_idAssembly" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person_idPerson" class="control-label"></label>
+                <select asp-for="Person_idPerson" asp-items="Model.Personas" class="form-select"></select>
+                <span asp-validation-for="Person_idPerson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Registrar" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-        <label asp-for="Person_idPerson" class="form-label"></label>
-        <input asp-for="Person_idPerson" class="form-control" />
-        <span asp-validation-for="Person_idPerson" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Registrar</button>
-    <button class="btn btn-secondary" asp-action="Index">Cancelar</button>
-</form>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
 @section Scripts{
-
     <partial name="_ValidationScriptsPartial"/>
 
 }
+

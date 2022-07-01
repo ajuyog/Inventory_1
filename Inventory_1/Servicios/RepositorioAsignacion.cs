@@ -6,93 +6,49 @@ namespace Inventory_1.Servicios
 {
     public interface IRepositorioAsignacion
     {
-        Task Actualizar(Asignaciones asignaciones);
-        Task CrearAsignacion(Asignaciones asignaciones);
-        Task<bool> ExisteAsig(int Assembly_idAssembly, string Person_idPerson);
-        Task<IEnumerable<Asignaciones>> Obtener();
-        Task<Asignaciones> ObtenerEnsamble(int Assembly_idAssembly);
+        Task CrearAsignacion(Asignacion asignacion);
+        Task<bool> ExisteAsignacion(int Assembly_idAssembly);
+        Task<IEnumerable<Asignacion>> Obtener();
     }
-
-    //Conección a BD
 
     public class RepositorioAsignacion: IRepositorioAsignacion
     {
-        private readonly string ConnectionStrings;
+        private readonly string connectionString;
+
         public RepositorioAsignacion(IConfiguration configuration)
         {
-            ConnectionStrings = configuration.GetConnectionString("Connection_2");
+            connectionString = configuration.GetConnectionString("Connection_2");
         }
 
-        //Crear una asignación formulario
-
-        public async Task CrearAsignacion(Asignaciones asignaciones)
+        public async Task CrearAsignacion(Asignacion asignacion)
         {
-            using var connection = new SqlConnection(ConnectionStrings);
+            using var connection = new SqlConnection(connectionString);
 
-            var Person_idPerson = await connection.QuerySingleAsync<string>($@"INSERT INTO Assigment (Assembly_idAssembly, Person_idPerson) 
-                                                                            VALUES (@Assembly_idAssembly, @Person_idPerson);
-                                                                            SELECT Person_idPerson FROM Assigment 
-                                                                            WHERE Person_idPerson = @Person_idPerson AND Assembly_idAssembly = @Assembly_idAssembly", asignaciones);
-
-            asignaciones.Person_idPerson = Person_idPerson;
+            var id = await connection.QuerySingleAsync(@"insert into Assigment (Assembly_idAssembly, Person_idPerson) 
+                                                        values (@Assembly_idAssembly, @Person_idPerson);
+                                                        select Person_idPerson from Assigment 
+                                                        where Assembly_idAssembly = @Assembly_idAssembly and 
+                                                        Person_idPerson = @Person_idPerson;
+                                                        ", asignacion);
+            asignacion.Person_idPerson = id;
+          
         }
 
-        //Verificación de datos existente
 
-        public async Task<bool> ExisteAsig(int Assembly_idAssembly, string Person_idPerson)
+        public async Task<IEnumerable<Asignacion>> Obtener()
         {
-            using var connection = new SqlConnection(ConnectionStrings);
-
-            var existeAsig = await connection.QueryFirstOrDefaultAsync<int>($@"SELECT 1 FROM Assigment WHERE 
-                                                                               Assembly_idAssembly = @Assembly_idAssembly AND Person_idPerson = @Person_idPerson;"
-                                                                               , new {Assembly_idAssembly, Person_idPerson});
-            return existeAsig == 1;
-
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Asignacion>(@"select Assembly_idAssembly, Person_idPerson from Assigment");
         }
 
-        //Lista de asignaciones lista/Tabla
-
-       public async Task<IEnumerable<Asignaciones>> Obtener()
+        public async Task<bool> ExisteAsignacion(int Assembly_idAssembly)
         {
-            using var connection = new SqlConnection(ConnectionStrings);
+            using var connection = new SqlConnection(connectionString);
 
-            return await connection.QueryAsync<Asignaciones>($@"SELECT Assembly_idAssembly, Person_idPerson FROM Assigment;");
-
-
+            var existeasignacion = await connection.QueryFirstOrDefaultAsync<int>(@" select 1 from Assigment where Assembly_idAssembly = @Assembly_idAssembly
+                                                                                    ", new { Assembly_idAssembly });
+            return existeasignacion == 1;
         }
 
-
-        //Editor asignación formulario
-
-        public async Task Actualizar(Asignaciones asignaciones)
-        {
-            using var connection = new SqlConnection(ConnectionStrings);
-
-            await connection.ExecuteAsync($@"UPDATE Assigment
-                                        SET Person_idPerson = @Person_idPerson
-                                        WHERE Assembly_idAssembly = @Assembly_idAssembly", asignaciones);
-        }
-
-        //verificación de ensamble
-
-        public async Task<Asignaciones> ObtenerEnsamble(int Assembly_idAssembly)
-        {
-            using var connetion = new SqlConnection(ConnectionStrings);
-            return await connetion.QueryFirstOrDefaultAsync<Asignaciones>($@"SELECT Assembly_idAssembly, Person_idPerson FROM Assigment 
-                                                                          WHERE Assembly_idAssembly = @Assembly_idAssembly 
-                                                                          ", new { Assembly_idAssembly });
-        }
-
-
-        //Eliminar registro de asignacion
-
-        public async Task Borrar(int Person_idPerson,int Assembly_idAssembly)
-        {
-            using var connection = new SqlConnection(ConnectionStrings);
-
-            await connection.ExecuteAsync($@"DELLETE Assigment
-                                          WHERE Person_idPerson = @Person_idPerson AND Assembly_idAssembly = @Assembly_idAssembly", new { Person_idPerson, Assembly_idAssembly });
-        }
-      
     }
 }
